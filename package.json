@@ -69,7 +69,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Chris-Tsai/zipcode-tw-react.git"
+    "url": "git+https://github.com/softleader/zipcode-tw-react.git"
   },
   "keywords": [
     "react",
@@ -79,10 +79,7 @@
     "郵遞區號",
     "台灣"
   ],
-  "author": "Chris.Tsai",
+  "author": "Softleader (forked from Chris.Tsai)",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/Chris-Tsai/zipcode-tw-react/issues"
-  },
-  "homepage": "https://github.com/Chris-Tsai/zipcode-tw-react#readme"
+  "homepage": "https://github.com/softleader/zipcode-tw-react#readme"
 }
