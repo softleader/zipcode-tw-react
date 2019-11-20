@@ -24,8 +24,10 @@ export default class ZipCodeTW extends React.Component {
       district: 'district',
       districts: [],
       zipCode: 'zipCode',
-      zipCodePlaceholder: '',
+      zipCodePlaceholder: ''
     };
+    this.rowData = props.rowData ? props.rowData : RawData;
+    this.rowDataSort = props.countySort ? props.countySort : RawDataSort;
   }
 
   componentDidUpdate(prevProps) {
@@ -45,8 +47,8 @@ export default class ZipCodeTW extends React.Component {
     this.initData();
   }
 
-  initData = () =>{
-    const counties = Object.keys(RawData);
+  initData = () => {
+    const counties = Object.keys(this.rowData);
     const {
       countyValue,
       districtValue,
@@ -54,25 +56,21 @@ export default class ZipCodeTW extends React.Component {
       countyFieldName,
       districtFieldName,
       zipCodeFieldName,
-      countySort,
     } = this.props;
-    if(typeof countySort != 'undefined'){
-      counties.sort(function (a, b) {
-        return countySort[a] - countySort[b];
-      });
-    }else{
-      counties.sort(function (a, b) {
-        return RawDataSort[a] - RawDataSort[b];
-      });
-    }
+    counties.sort((a, b) => {
+      return this.rowDataSort[a] - this.rowDataSort[b];
+    });
 
     const county = (countyValue === '') ? counties[0] : countyValue;
     let district;
     let zipCode = typeof(zipCodeValue) == 'undefined' ?  '' : zipCodeValue;
-    let countyRaw = RawData[county];
-    const districts = typeof(countyRaw) == 'undefined'  ? [] : Object.keys(countyRaw).map((d) => d, []);
+    let countyRaw = this.rowData[county];
+    const districts = typeof(countyRaw) === 'object' ? Object.keys(countyRaw).map((d) => d, []) : [];
 
-    if(typeof(districts) != 'undefined' && districts.length > 0){
+    if (typeof(countyRaw) === 'string') {
+      district = '';
+      zipCode = countyRaw;
+    } else if(districts.length > 0){
       if (districtValue === '') {
         district = districts[0];
       } else if (districts.indexOf(districtValue) > -1) {
@@ -80,7 +78,7 @@ export default class ZipCodeTW extends React.Component {
       } else {
         district = districts[0];
       }
-      zipCode = RawData[county][district];
+      zipCode = this.rowData[county][district];
     }
 
     const nowCountyFieldName = typeof (countyFieldName) != 'undefined' && countyFieldName !== '' ? countyFieldName: 'county';
@@ -97,9 +95,18 @@ export default class ZipCodeTW extends React.Component {
   }
 
   handleChangeCounty = (county) => {
-    const districts = Object.keys(RawData[county]).map((d) => d, []);
-    let district = districts[0];
-    let zipCode = RawData[county][districts[0]];
+    let countyRaw = this.rowData[county];
+    const districts = typeof(countyRaw) === 'object' ? Object.keys(countyRaw).map((d) => d, []) : [];
+    let district, zipCode;
+
+    if (typeof(countyRaw) === 'string') {
+      district = '';
+      zipCode = countyRaw;
+    } else {
+      district = districts[0];
+      zipCode = countyRaw[districts[0]];
+    }
+
     let {handleChangeCounty} = this.props;
     let {countyFieldName, districtFieldName, zipCodeFieldName} = this.state;
     this.setState({
@@ -119,7 +126,7 @@ export default class ZipCodeTW extends React.Component {
   }
 
   handleChangeDistrict = (district) =>{
-    let zipCode = RawData[this.state.county][district];
+    let zipCode = this.rowData[this.state.county][district];
     let {handleChangeDistrict} = this.props;
     let {countyFieldName, districtFieldName, zipCodeFieldName} = this.state;
     this.setState({
@@ -155,7 +162,7 @@ export default class ZipCodeTW extends React.Component {
     let {handleZipCodeNotExists, handleBlurZipCode} = this.props;
     let {countyFieldName, districtFieldName, zipCodeFieldName} = this.state;
     if(typeof(countyN) != 'undefined' && typeof(districtN) != 'undefined'){
-      const districts = Object.keys(RawData[countyN]).map((d) => d, []);
+      const districts = Object.keys(this.rowData[countyN]).map((d) => d, []);
       this.setState({
         county: countyN, district: districtN, districts: districts
       }, () =>{
@@ -183,22 +190,33 @@ export default class ZipCodeTW extends React.Component {
   }
 
   findCountyAndDistrictByZipCode = (zipCode) =>{
-    let rtn = {}
-    Object.keys(RawData).forEach((countyN) => {
-      Object.keys(RawData[countyN]).forEach((districtN) => {
-        if (RawData[countyN][districtN] === zipCode.toString()) {
+    let rtn = {};
+
+    Object.keys(this.rowData).forEach((countyN) => {
+      let countyRaw = this.rowData[countyN];
+      if (typeof(countyRaw) === 'object') {
+        Object.keys(countyRaw).forEach((districtN) => {
+          if (this.rowData[countyN][districtN] === zipCode.toString()) {
+            rtn = {
+              countyN,
+              districtN,
+            };
+          }
+        });
+      } else {
+        if (countyRaw  === zipCode.toString()) {
           rtn = {
             countyN,
-            districtN,
+            districtN: '',
           };
         }
-      });
+      }
     });
     return rtn;
   }
 
   render() {
-    const {zipStyle, countyStyle, districtStyle, zipClass, countyClass, districtClass, displayType, zipCodePositionLast, countySort} = this.props;
+    const {zipStyle, countyStyle, districtStyle, zipClass, countyClass, districtClass, displayType, zipCodePositionLast} = this.props;
     const {fullAddress, address, addressClass, addressStyle} = this.props;
     const displayTypeFlag = (displayType === 'display') ? true : false;
     const nowZipCodePositionLast = typeof (zipCodePositionLast) != 'undefined' ? zipCodePositionLast : true;
@@ -300,4 +318,5 @@ ZipCodeTW.propTypes = {
   addressClass: PropTypes.oneOfType([PropTypes.string, PropTypes.array, PropTypes.object]),
   addressStyle: PropTypes.oneOfType([PropTypes.string, PropTypes.array, PropTypes.object]),
   countySort: PropTypes.object,
+  rowData: PropTypes.object,
 };

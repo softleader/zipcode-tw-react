@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ZipCodeTW from "./es/zipcode/ZipCodeTW";
+import RowData from "./_example/js/RawData-hsinchu-no-districts";
 
 class ZipCodeTWTest extends React.Component {
 
@@ -77,6 +78,7 @@ class ZipCodeTWTest extends React.Component {
                        handleBlurZipCode={this.handleZipCodeChange}
                        handleZipCodeNotExists={this.handleZipCodeChange}
                        countySort={countySort}
+                       rowData={RowData}
             ></ZipCodeTW>
           </div>
         </div>
