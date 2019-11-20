@@ -52,6 +52,7 @@ Example : [zipcode-tw-react-example](https://github.com/Chris-Tsai/zipcode-tw-re
  Name | Type | Default | Description
 :--- | :--- | :--- | :---
 displayType| one of: 'text', 'display' | 'text' | displayType= display<br/>1. 以span顯示且包含readOnly & disabled屬性<br/>2. 提供fullAddress、address參數合併顯示郵遞區號及地址
+rowData| object | {'': {'':''}, 基隆市: {仁愛區: '200', 信義區: '201', 中正區: '202', 中山區: '203', 安樂區: '204', 暖暖區: '205', 七堵區: '206', }}|
 countySort| object | {"基隆市": 1, "台北市":2, "新北市":3, <br/>"桃園市":4, "新竹市":5, "新竹縣":6,<br/> "苗栗縣":7, "台中市":8, "彰化縣":9,<br/> "南投縣":10,"雲林縣":11, "嘉義市":12,<br/> "嘉義縣":13, "台南市":14, "高雄市":15,<br/> "屏東縣":16, "台東縣":17, "花蓮縣":18,<br/> "宜蘭縣":19, "澎湖縣":20,"金門縣":21,<br/> "連江縣":22}|
 zipCodePositionLast| bool | true| Decide zipCode input text position, <br/>when displayType= display, position is fixed 
 countyFieldName | string |'county' |
