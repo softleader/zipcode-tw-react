@@ -61,24 +61,37 @@ export default class ZipCodeTW extends React.Component {
       return this.rowDataSort[a] - this.rowDataSort[b];
     });
 
-    const county = (countyValue === '') ? counties[0] : countyValue;
+    let county;
+    let zipCode;
     let district;
-    let zipCode = typeof(zipCodeValue) == 'undefined' ?  '' : zipCodeValue;
-    let countyRaw = this.rowData[county];
-    const districts = typeof(countyRaw) === 'object' ? Object.keys(countyRaw).map((d) => d, []) : [];
-
-    if (typeof(countyRaw) === 'string') {
-      district = '';
-      zipCode = countyRaw;
-    } else if(districts.length > 0){
-      if (districtValue === '') {
-        district = districts[0];
-      } else if (districts.indexOf(districtValue) > -1) {
-        district = districtValue;
-      } else {
-        district = districts[0];
+    let districts;
+    let countyRaw;
+    if (zipCodeValue) {
+      // 優先判斷郵遞區號, 若有則直接完成城市與區的選擇
+      zipCode = zipCodeValue;
+      let result = this.findCountyAndDistrictByZipCode(zipCode);
+      county = result.countyN || counties[0];
+      countyRaw = this.rowData[county];
+      districts = typeof(countyRaw) === 'object' ? Object.keys(countyRaw).map((d) => d, []) : [];
+      district = result.districtN || districts[0];
+    } else {
+      // 有城市的情況, 順便處理區, 並完成郵遞區號的選擇
+      // 或者是什麼都沒有的情況直接用預設值
+      county = countyValue || counties[0];
+      countyRaw = this.rowData[county];
+      districts = typeof(countyRaw) === 'object' ? Object.keys(countyRaw).map((d) => d, []) : [];
+      // 選擇郵遞區號
+      if (typeof(countyRaw) === 'string') {
+        district = '';
+        zipCode = countyRaw;
+      } else if(districts.length > 0){
+        if (districts.indexOf(districtValue) > -1) {
+          district = districtValue;
+        } else {
+          district = districts[0];
+        }
+        zipCode = this.rowData[county][district];
       }
-      zipCode = this.rowData[county][district];
     }
 
     const nowCountyFieldName = typeof (countyFieldName) != 'undefined' && countyFieldName !== '' ? countyFieldName: 'county';
@@ -259,7 +272,7 @@ export default class ZipCodeTW extends React.Component {
                     disabled={true}
               >{fullAddress}</span> : <>
                 <County fieldName={this.state.countyFieldName}
-                        value={this.props.countyValue}
+                        value={this.state.county}
                         countyClass={nowCountyClass}
                         countyStyle={nowCountyStyle}
                         dataOptions={this.state.counties}
@@ -267,7 +280,7 @@ export default class ZipCodeTW extends React.Component {
                         onChange={this.handleChangeCounty}
                 />
                 <District fieldName={this.state.districtFieldName}
-                          value={this.props.districtValue}
+                          value={this.state.district}
                           districtClass={nowDistrictClass}
                           districtStyle={nowDistrictStyle}
                           displayType={displayType}
@@ -276,7 +289,7 @@ export default class ZipCodeTW extends React.Component {
                 />
                 {!displayTypeFlag && nowZipCodePositionLast ?
                     <ZipCode fieldName={this.state.zipCodeFieldName}
-                             value={this.props.zipCodeValue}
+                             value={this.state.zipCode}
                              zipClass={nowZipClass}
                              zipStyle={nowZipStyle}
                              placeholder={this.props.zipCodePlaceholder}

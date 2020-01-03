@@ -8,8 +8,8 @@ class ZipCodeTWTest extends React.Component {
   constructor() {
     super();
     this.state = {
-      county: '台北市',
-      district: '中正區',
+      county: '',
+      district: '',
       zipCode: '100',
     }
   }
