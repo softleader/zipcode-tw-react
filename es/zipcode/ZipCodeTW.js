@@ -91,6 +91,11 @@ export default class ZipCodeTW extends React.Component {
       countyFieldName: nowCountyFieldName,
       districtFieldName: nowDistrictFieldNam,
       zipCodeFieldName: nowZipCodeFieldName
+    }, () => {
+      let {onInited} = this.props;
+      if(typeof (onInited) == 'function'){
+        onInited({'countyValue': county, 'districtValue': district, 'zipValue':zipCode});
+      }
     });
   }
 
@@ -309,6 +314,7 @@ ZipCodeTW.propTypes = {
   handleChangeZipCode: PropTypes.func,
   handleBlurZipCode: PropTypes.func,
   handleZipCodeNotExists: PropTypes.func,
+  onInited: PropTypes.func,
   countyClass: PropTypes.oneOfType([PropTypes.string, PropTypes.array, PropTypes.object]),
   countyStyle: PropTypes.oneOfType([PropTypes.string, PropTypes.array, PropTypes.object]),
   districtClass: PropTypes.oneOfType([PropTypes.string, PropTypes.array, PropTypes.object]),

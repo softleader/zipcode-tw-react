@@ -8,9 +8,9 @@ class ZipCodeTWTest extends React.Component {
   constructor() {
     super();
     this.state = {
-      county: '',
-      district: '',
-      zipCode: '',
+      county: '台北市',
+      district: '中正區',
+      zipCode: '100',
     }
   }
 
@@ -72,6 +72,7 @@ class ZipCodeTWTest extends React.Component {
                          marginLeft: '5px',
                          display: 'inline'
                        }}
+                       onInited={(result) => console.log(result)}
                        handleChangeCounty={this.handleZipCodeChange}
                        handleChangeDistrict={this.handleZipCodeChange}
                        handleChangeZipCode={this.handleZipCodeChange}
