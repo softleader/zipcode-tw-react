@@ -1,6 +1,6 @@
 import React from "react";
 import swal from "sweetalert2";
-import {ZipCodeTW} from "zipcode-tw-react"
+import {ZipCodeTW} from "@softleader/zipcode-tw-react"
 
 class Address extends React.Component {
 

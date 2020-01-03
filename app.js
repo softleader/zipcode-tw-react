@@ -80,7 +80,7 @@ class ZipCodeTWTest extends React.Component {
                        handleZipCodeNotExists={this.handleZipCodeChange}
                        countySort={countySort}
                        rowData={RowData}
-            ></ZipCodeTW>
+            />
           </div>
         </div>
     );
