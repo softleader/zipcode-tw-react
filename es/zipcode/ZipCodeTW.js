@@ -256,7 +256,7 @@ export default class ZipCodeTW extends React.Component {
         <>
           {displayTypeFlag || (!displayTypeFlag && !nowZipCodePositionLast)  ?
               <ZipCode fieldName={this.state.zipCodeFieldName}
-                       value={this.props.zipCodeValue}
+                       value={this.state.zipCode}
                        zipClass={nowZipClass}
                        zipStyle={nowZipStyle}
                        placeholder={this.props.zipCodePlaceholder}
