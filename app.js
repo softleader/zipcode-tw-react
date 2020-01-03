@@ -72,7 +72,7 @@ class ZipCodeTWTest extends React.Component {
                          marginLeft: '5px',
                          display: 'inline'
                        }}
-                       onInited={(result) => console.log(result)}
+                       onInited={({countyValue, districtValue, zipValue}) => console.log(countyValue, districtValue, zipValue)}
                        handleChangeCounty={this.handleZipCodeChange}
                        handleChangeDistrict={this.handleZipCodeChange}
                        handleChangeZipCode={this.handleZipCodeChange}
