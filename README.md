@@ -57,10 +57,13 @@ countySort| object | {"基隆市": 1, "台北市":2, "新北市":3, <br/>"桃園
 zipCodePositionLast| bool | true| Decide zipCode input text position, <br/>when displayType= display, position is fixed 
 countyFieldName | string |'county' |
 countyValue | string | |
+countyReadonly | boolean | false | 此設定於 displayType='text' 時有效, 縣市欄位是否唯讀
 districtFieldName | string |'district' |
 districtValue | string | |
+districtReadonly | boolean | false | 此設定於 displayType='text' 時有效, 鄉鎮區欄位是否唯讀
 zipCodeFieldName | string |'zipCode' |
 zipCodeValue | string | |
+zipCodeReadonly | boolean | false | 此設定於 displayType='text' 時有效, 郵遞區號欄位是否唯讀
 countyClass | string |'form-control' |
 countyStyle | object | {} |
 districtClass | string |'form-control' |
@@ -72,6 +75,7 @@ fullAddress | string | | 完整地址(優化顯示)
 address | string | | 路段地址資訊(優化顯示)
 addressClass | string | 'form-control'|
 addressStyle | object | {} |
+rowData | object | 預設為全台各縣市鄉鎮資料 | 當只需要部份資料時可自行傳入
 
 ###### Method
 
