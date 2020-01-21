@@ -18,7 +18,7 @@ class Address extends React.Component {
 
   handleChange = (e) =>{
     this.setState({[e.target.name]: e.target.value});
-  }
+  };
 
   // 變更地址資訊
   handleZipCodeChange = (e) =>{
@@ -28,7 +28,7 @@ class Address extends React.Component {
       [countyFieldName]: countyValue,
       [districtFieldName]: districtValue,
     });
-  }
+  };
 
   // 處理郵遞區號不存在
   handleZipCodeNotExists = (e) =>{
@@ -40,7 +40,7 @@ class Address extends React.Component {
     });
 
     swal('郵遞區號不存在: ' + origZipValue, '', 'error');
-  }
+  };
 
   render() {
     let addressShow = this.state.displayType === 'display' ? 'none' : 'inline';

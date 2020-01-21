@@ -110,7 +110,7 @@ export default class ZipCodeTW extends React.Component {
         onInited({'countyValue': county, 'districtValue': district, 'zipValue':zipCode});
       }
     });
-  }
+  };
 
   handleChangeCounty = (county) => {
     let countyRaw = this.rowData[county];
@@ -141,7 +141,7 @@ export default class ZipCodeTW extends React.Component {
         });
       }
     });
-  }
+  };
 
   handleChangeDistrict = (district) =>{
     let zipCode = this.rowData[this.state.county][district];
@@ -159,7 +159,7 @@ export default class ZipCodeTW extends React.Component {
         });
       }
     });
-  }
+  };
 
   handleChangeZipCode = (zipCode) =>{
     let {handleChangeZipCode} = this.props;
@@ -173,7 +173,7 @@ export default class ZipCodeTW extends React.Component {
         });
       }
     });
-  }
+  };
 
   handleBlurZipCode = (zipCode) =>{
     const { countyN, districtN } = this.findCountyAndDistrictByZipCode(zipCode);
@@ -205,7 +205,7 @@ export default class ZipCodeTW extends React.Component {
         }
       });
     }
-  }
+  };
 
   findCountyAndDistrictByZipCode = (zipCode) =>{
     let rtn = {};
@@ -231,12 +231,12 @@ export default class ZipCodeTW extends React.Component {
       }
     });
     return rtn;
-  }
+  };
 
   render() {
     const {zipStyle, countyStyle, districtStyle, zipClass, countyClass, districtClass, displayType, zipCodePositionLast} = this.props;
     const {fullAddress, address, addressClass, addressStyle} = this.props;
-    const displayTypeFlag = (displayType === 'display') ? true : false;
+    const displayTypeFlag = (displayType === 'display');
     const nowZipCodePositionLast = typeof (zipCodePositionLast) != 'undefined' ? zipCodePositionLast : true;
     const nowCountyStyle = typeof (countyStyle) != 'undefined' ? countyStyle: nowZipCodePositionLast ? {} : {marginLeft:'5px'};
     const nowDistrictStyle =

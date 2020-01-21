@@ -22,7 +22,7 @@ class ZipCodeTWTest extends React.Component {
       [countyFieldName]: countyValue,
       [districtFieldName]: districtValue,
     });
-  }
+  };
 
   render() {
     let countySort = {

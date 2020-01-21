@@ -19,7 +19,7 @@ export default class ZipCode extends React.Component {
         && typeof (onChange) == 'function'){
       onChange(value);
     }
-  }
+  };
 
   handleBlur = (e) =>{
     let value = e.target.value;
@@ -27,7 +27,7 @@ export default class ZipCode extends React.Component {
     if(typeof (onBlur) == 'function'){
       onBlur(value);
     }
-  }
+  };
 
   render() {
     const {fieldName, zipClass, zipStyle, value, displayType, placeholder

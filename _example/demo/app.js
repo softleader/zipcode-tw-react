@@ -40,7 +40,7 @@ class ZipCodeTWTest extends React.Component {
 
   handleChange = (e) => {
     this.setState({[e.target.name]: e.target.value});
-  }
+  };
 
   handleChangeObj = (e) => {
     let name = e.target.name;
@@ -52,7 +52,7 @@ class ZipCodeTWTest extends React.Component {
     } catch (ex) {
       this.setState({[e.target.name]: e.target.value});
     }
-  }
+  };
 
   handleClick = (e) => {
     let show = this.state.show;
@@ -61,7 +61,7 @@ class ZipCodeTWTest extends React.Component {
       show: !show,
       displayType: displayType === 'display' ? 'text' : 'display'
     });
-  }
+  };
 
   handleCountyChange = (e) => {
     const {countyFieldName, countyValue, districtFieldName, districtValue, zipFieldName, zipValue} = e;
@@ -75,7 +75,7 @@ class ZipCodeTWTest extends React.Component {
       handleZipCodeBlur: {},
       handleZipCodeNotExists: {}
     });
-  }
+  };
 
   handleDistrictChange = (e) => {
     const {districtFieldName, districtValue, zipFieldName, zipValue} = e;
@@ -88,7 +88,7 @@ class ZipCodeTWTest extends React.Component {
       handleZipCodeBlur: {},
       handleZipCodeNotExists: {}
     });
-  }
+  };
 
   handleZipCodeChange = (e) => {
     this.setState({
@@ -99,7 +99,7 @@ class ZipCodeTWTest extends React.Component {
       handleZipCodeBlur: {},
       handleZipCodeNotExists: {}
     });
-  }
+  };
 
   handleZipCodeBlur = (e) => {
     const {countyFieldName, countyValue, districtFieldName, districtValue, zipFieldName, zipValue} = e;
@@ -113,7 +113,7 @@ class ZipCodeTWTest extends React.Component {
       handleZipCodeChange: {},
       handleZipCodeNotExists: {}
     });
-  }
+  };
 
   handleZipCodeNotExists = (e) => {
     const {countyFieldName, countyValue, districtFieldName, districtValue, zipFieldName, zipValue, origZipValue} = e;
@@ -129,7 +129,7 @@ class ZipCodeTWTest extends React.Component {
     });
 
     swal('郵遞區號不存在: ' + origZipValue, '', 'error');
-  }
+  };
 
   render() {
     let countyRtn = JSON.stringify(this.state.handleCountyChange);

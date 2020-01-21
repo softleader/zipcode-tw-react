@@ -18,7 +18,7 @@ export default class District extends React.Component {
     if(typeof (onChange) == 'function'){
       onChange(value);
     }
-  }
+  };
 
   render() {
     const {dataOptions, fieldName, districtClass, districtStyle, value, displayType,

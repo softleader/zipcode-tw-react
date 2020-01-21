@@ -18,7 +18,7 @@ export default class County extends React.Component {
     if(typeof (onChange) == 'function'){
       onChange(value);
     }
-  }
+  };
 
   render() {
     const {
