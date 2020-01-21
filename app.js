@@ -81,6 +81,33 @@ class ZipCodeTWTest extends React.Component {
                        countySort={countySort}
                        rowData={RowData}
             />
+            <br/>
+            <ZipCodeTW displayType='text'
+                       countyValue={this.state.county}
+                       countyReadonly={true}
+                       districtValue={this.state.district}
+                       zipCodeValue={this.state.zipCode}
+                       zipCodeReadonly={true}
+                       zipCodePositionLast={false}
+                       countyStyle={{width: '100px', display: 'inline'}}
+                       districtStyle={{
+                         width: '100px',
+                         marginLeft: '5px',
+                         display: 'inline'
+                       }}
+                       zipStyle={{
+                         width: '60px',
+                         marginLeft: '5px',
+                         display: 'inline'
+                       }}
+                       onInited={({countyValue, districtValue, zipValue}) => console.log(countyValue, districtValue, zipValue)}
+                       handleChangeCounty={this.handleZipCodeChange}
+                       handleChangeDistrict={this.handleZipCodeChange}
+                       handleChangeZipCode={this.handleZipCodeChange}
+                       handleBlurZipCode={this.handleZipCodeChange}
+                       handleZipCodeNotExists={this.handleZipCodeChange}
+                       countySort={countySort}
+            />
           </div>
         </div>
     );

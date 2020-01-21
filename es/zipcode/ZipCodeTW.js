@@ -260,7 +260,7 @@ export default class ZipCodeTW extends React.Component {
                        zipClass={nowZipClass}
                        zipStyle={nowZipStyle}
                        placeholder={this.props.zipCodePlaceholder}
-                       displayType={displayType}
+                       displayType={this.props.zipCodeReadonly ? 'display' : displayType}
                        onChange={this.handleChangeZipCode}
                        onBlur={this.handleBlurZipCode}
               /> : ''
@@ -276,14 +276,14 @@ export default class ZipCodeTW extends React.Component {
                         countyClass={nowCountyClass}
                         countyStyle={nowCountyStyle}
                         dataOptions={this.state.counties}
-                        displayType={displayType}
+                        displayType={this.props.countyReadonly ? 'display' : displayType}
                         onChange={this.handleChangeCounty}
                 />
                 <District fieldName={this.state.districtFieldName}
                           value={this.state.district}
                           districtClass={nowDistrictClass}
                           districtStyle={nowDistrictStyle}
-                          displayType={displayType}
+                          displayType={this.props.districtReadonly ? 'display' : displayType}
                           dataOptions={this.state.districts}
                           onChange={this.handleChangeDistrict}
                 />
@@ -293,7 +293,7 @@ export default class ZipCodeTW extends React.Component {
                              zipClass={nowZipClass}
                              zipStyle={nowZipStyle}
                              placeholder={this.props.zipCodePlaceholder}
-                             displayType={displayType}
+                             displayType={this.props.zipCodeReadonly ? 'display' : displayType}
                              onChange={this.handleChangeZipCode}
                              onBlur={this.handleBlurZipCode}
                     /> : ''
@@ -317,11 +317,14 @@ ZipCodeTW.propTypes = {
   address: PropTypes.string,
   countyFieldName: PropTypes.string,
   countyValue: PropTypes.string,
+  countyReadonly: PropTypes.bool,
   districtFieldName: PropTypes.string,
   districtValue: PropTypes.string,
+  districtReadonly: PropTypes.bool,
   zipCodeFieldName: PropTypes.string,
   zipCodeValue: PropTypes.string,
   zipCodePlaceholder: PropTypes.string,
+  zipCodeReadonly: PropTypes.bool,
   handleChangeCounty: PropTypes.func,
   handleChangeDistrict: PropTypes.func,
   handleChangeZipCode: PropTypes.func,
