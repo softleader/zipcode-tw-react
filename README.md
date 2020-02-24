@@ -30,7 +30,7 @@ or use package.json
 ```bash
 "dependencies": {
       ...
-    + "zipcode-tw-react": "^1.2.0",
+    + "zipcode-tw-react": "v1.3.0-sl-hotfix.4",
  },
 ```
 
