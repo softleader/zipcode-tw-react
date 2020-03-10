@@ -10,18 +10,23 @@ export default class District extends React.Component {
 
   constructor(props) {
     super(props);
+    this.state = {
+      value: props.value,
+    }
   }
 
   handleChange = (e) =>{
     let value = e.target.value;
-    let {onChange} = this.props;
-    if(typeof (onChange) == 'function'){
-      onChange(value);
-    }
+    this.setState({value}, () => {
+      let {onChange} = this.props;
+      if(typeof (onChange) == 'function'){
+        onChange(value);
+      }
+    });
   };
 
   render() {
-    const {dataOptions, fieldName, districtClass, districtStyle, value, displayType,
+    const {dataOptions, fieldName, districtClass, districtStyle, displayType,
     } = this.props;
 
     const districts = !!dataOptions && dataOptions.map((op) =>
@@ -33,7 +38,7 @@ export default class District extends React.Component {
                       className={districtClass}
                       style={districtStyle}
                       onChange={this.handleChange}
-                      value={value}
+                      value={this.state.value}
               >
                 {districts}
               </select>
@@ -43,8 +48,8 @@ export default class District extends React.Component {
                     style={districtStyle}
                     readOnly={true}
                     disabled={true}
-              >{value}</span>
-              <input type="hidden" name={fieldName} value={value}/>
+              >{this.state.value}</span>
+              <input type="hidden" name={fieldName} value={this.state.value}/>
               </>
           }
         </>

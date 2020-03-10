@@ -79,7 +79,7 @@ class ZipCodeTWTest extends React.Component {
                        handleBlurZipCode={this.handleZipCodeChange}
                        handleZipCodeNotExists={this.handleZipCodeChange}
                        countySort={countySort}
-                       rowData={RowData}
+                       // rowData={RowData}
             />
             <br/>
             <ZipCodeTW displayType='text'
