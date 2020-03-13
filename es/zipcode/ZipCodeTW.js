@@ -19,11 +19,11 @@ export default class ZipCodeTW extends React.Component {
       countyFieldName: 'county',
       districtFieldName: 'district',
       zipCodeFieldName: 'zipCode',
-      county: 'county',
+      county: '',
       counties: [],
-      district: 'district',
+      district: '',
       districts: [],
-      zipCode: 'zipCode',
+      zipCode: '',
       zipCodePlaceholder: ''
     };
     this.rowData = props.rowData ? props.rowData : RawData;
@@ -73,7 +73,8 @@ export default class ZipCodeTW extends React.Component {
       county = result.countyN || counties[0];
       countyRaw = this.rowData[county];
       districts = typeof(countyRaw) === 'object' ? Object.keys(countyRaw).map((d) => d, []) : [];
-      district = result.districtN || districts[0];
+      // 但是新竹市裡面各區的郵遞區號都相同, 因此還是要先參考區的選擇
+      district = districtValue || result.districtN || districts[0];
     } else {
       // 有城市的情況, 順便處理區, 並完成郵遞區號的選擇
       // 或者是什麼都沒有的情況直接用預設值
@@ -128,10 +129,10 @@ export default class ZipCodeTW extends React.Component {
     let {handleChangeCounty} = this.props;
     let {countyFieldName, districtFieldName, zipCodeFieldName} = this.state;
     this.setState({
-      county: county,
-      districts: districts,
-      district: district,
-      zipCode: zipCode,
+      county,
+      districts,
+      district,
+      zipCode,
     }, () => {
       if(typeof (handleChangeCounty) == 'function'){
         handleChangeCounty({
@@ -148,8 +149,8 @@ export default class ZipCodeTW extends React.Component {
     let {handleChangeDistrict} = this.props;
     let {countyFieldName, districtFieldName, zipCodeFieldName} = this.state;
     this.setState({
-      district: district,
-      zipCode: zipCode,
+      district,
+      zipCode,
     }, () => {
       if(typeof (handleChangeDistrict) == 'function'){
         handleChangeDistrict({
@@ -175,20 +176,21 @@ export default class ZipCodeTW extends React.Component {
     });
   };
 
-  handleBlurZipCode = (zipCode) =>{
-    const { countyN, districtN } = this.findCountyAndDistrictByZipCode(zipCode);
+  handleBlurZipCode = (newZipCode) =>{
+    const { countyN, districtN } = this.findCountyAndDistrictByZipCode(newZipCode);
     let {handleZipCodeNotExists, handleBlurZipCode} = this.props;
-    let {countyFieldName, districtFieldName, zipCodeFieldName} = this.state;
+    let {countyFieldName, districtFieldName, zipCodeFieldName, zipCode, district} = this.state;
     if(typeof(countyN) != 'undefined' && typeof(districtN) != 'undefined'){
       const districts = Object.keys(this.rowData[countyN]).map((d) => d, []);
+      let newDistrict = zipCode === newZipCode ? district || districtN : districtN;
       this.setState({
-        county: countyN, district: districtN, districts: districts
+        county: countyN, district: newDistrict, districts: districts
       }, () =>{
         if(typeof (handleBlurZipCode) == 'function'){
           handleBlurZipCode({
             'countyFieldName':countyFieldName, 'countyValue': countyN,
             'districtFieldName':districtFieldName, 'districtValue': districtN,
-            'zipFieldName':zipCodeFieldName,'zipValue':zipCode
+            'zipFieldName':zipCodeFieldName,'zipValue':newZipCode
           });
         }
       });
@@ -200,7 +202,7 @@ export default class ZipCodeTW extends React.Component {
           handleZipCodeNotExists({
             'countyFieldName':countyFieldName, 'countyValue': '',
             'districtFieldName':districtFieldName, 'districtValue': '',
-            'zipFieldName':zipCodeFieldName,'zipValue':'', 'origZipValue': zipCode
+            'zipFieldName':zipCodeFieldName,'zipValue':'', 'origZipValue': newZipCode
           });
         }
       });

@@ -16,11 +16,11 @@ class ZipCodeTWTest extends React.Component {
 
   // 變更地址資訊
   handleZipCodeChange = (e) =>{
-    const {countyFieldName, countyValue, districtFieldName, districtValue, zipFieldName, zipValue} = e;
+    const {countyValue, districtValue, zipValue} = e;
     this.setState({
-      [zipFieldName]: zipValue,
-      [countyFieldName]: countyValue,
-      [districtFieldName]: districtValue,
+      county: countyValue,
+      district: districtValue,
+      zipCode: zipValue,
     });
   };
 

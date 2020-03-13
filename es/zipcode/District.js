@@ -11,8 +11,18 @@ export default class District extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: props.value,
+      value: '',
     }
+  }
+
+  componentDidUpdate(prevProps) {
+    if(prevProps.value !== this.props.value) {
+      this.setState({value: this.props.value})
+    }
+  }
+
+  componentDidMount() {
+    this.setState({value: this.props.value})
   }
 
   handleChange = (e) =>{
